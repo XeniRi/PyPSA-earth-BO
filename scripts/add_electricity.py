@@ -371,13 +371,13 @@ def attach_conventional_generators(
     ppl,
     conventional_carriers,
     extendable_carriers,
-    renewable_carriers,
+    #renewable_carriers,
     conventional_config,
     conventional_inputs,
 ):
-    carriers = set(conventional_carriers) | (
-        set(extendable_carriers["Generator"]) - set(renewable_carriers)
-    )
+    carriers = set(conventional_carriers) #| (
+        #set(extendable_carriers["Generator"]) - set(renewable_carriers)
+    #)
     _add_missing_carriers_from_costs(n, costs, carriers)
 
     ppl = (
@@ -575,11 +575,11 @@ def attach_hydro(n, costs, ppl):
             max_hours=hydro_max_hours,
             capital_cost=(
                 costs.at["hydro", "capital_cost"]
-                if c.get("hydro_capital_cost")
-                else 0.0
+                #if c.get("hydro_capital_cost")
+                #else 0.0
             ),
             marginal_cost=costs.at["hydro", "marginal_cost"],
-            p_max_pu=1.0,  # dispatch
+            p_max_pu=0.5,  # dispatch
             p_min_pu=0.0,  # store
             efficiency_dispatch=costs.at["hydro", "efficiency"],
             efficiency_store=0.0,
@@ -817,7 +817,7 @@ if __name__ == "__main__":
         ppl,
         conventional_carriers,
         extendable_carriers,
-        renewable_carriers,
+        #renewable_carriers,
         snakemake.config.get("conventional", {}),
         conventional_inputs,
     )
